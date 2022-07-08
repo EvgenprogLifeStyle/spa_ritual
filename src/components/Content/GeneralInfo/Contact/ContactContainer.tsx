@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Contact from "./Contact";
 import {compose} from "redux";
 import {connect} from "react-redux";
@@ -12,9 +12,13 @@ interface PropsContact {
 }
 
 const ContactContainer: FC<PropsContact> = ({idContact, getContact, state}) => {
-
+    console.log(idContact)
+    const [id, setId] = useState(0)
     useEffect(() => {
+
         getContact(idContact)
+        setId(idContact)
+
     }, [])
     return <>
         {state.lastname !== null

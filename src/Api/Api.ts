@@ -11,13 +11,15 @@ const instance = axios.create({
 export const userApi = {
     getUser: () =>
         instance.get(`auth?user=USERNAME`)
-            // .then(response => response.status),
             .then(response => response),
 }
 export const companiesApi = {
     getCompanies: (id:number) =>
         instance.get(`companies/${id}`)
             .then(response => response.data),
+    postCompanies: (id:number) =>
+        instance.post(`companies/${id}`, {})
+            .then(response => response.data)
 }
 export const contactApi = {
     getContact: (idContact:number) =>

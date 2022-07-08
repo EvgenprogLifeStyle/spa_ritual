@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import EditButton from "../../Ui/Button/EditButton/EditButton";
 import s from './GeneralInfo.module.scss'
 import InputText from "../../Ui/Input/InputText/InputText";
@@ -9,6 +9,7 @@ import DefaultImg from './../../../assets/img/img_default.jpg'
 import {getDate, options} from "./GeneralInfoContainer";
 import Contact from "./Contact/Contact";
 import ContactContainer from "./Contact/ContactContainer";
+import editIcon from "../../../assets/img/Edit.svg";
 
 interface PropsGeneralInfo {
     companies: any[]
@@ -17,12 +18,22 @@ interface PropsGeneralInfo {
 
 const GeneralInfo: FC<PropsGeneralInfo> = ({companies}) => {
 
+
+    const [stateH1, setStateH1] = useState<boolean>(false)
+    console.log(stateH1)
     return (
         <div className={s.general}>
             <div className={s.general__title}>
                 <h2>
                     {companies[0].shortName} </h2>
-                <EditButton/>
+                {/*<EditButton onClick={()=>setStateH1(true)}>*/}
+                {/*</EditButton>*/}
+                {!stateH1 &&
+                    <button style={{width:20, height:20, background: `url(${editIcon}) center no-repeat`}} onClick={() =>{ setStateH1(true)}}/>
+                }
+                {stateH1 &&
+                    <button onClick={() => setStateH1(false)}>save</button>
+                }
             </div>
 
             <div className={s.general__wrap}>
