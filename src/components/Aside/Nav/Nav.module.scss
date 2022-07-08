@@ -1,0 +1,35 @@
+.nav {
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #82B284;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+
+  li {
+
+    a {
+      display: inline-flex;
+      width: 48px;
+      height: 64px;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+
+      &.active,
+      &:hover {
+        background: #A4C7A5;
+      }
+    }
+  }
+}
+
+.bottom {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

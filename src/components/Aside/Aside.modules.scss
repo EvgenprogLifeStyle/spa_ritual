@@ -1,0 +1,15 @@
+aside {
+  display: flex;
+  flex: 0 0 280px;
+  position: relative;
+
+  &:after {
+    content: '';
+    width: 21px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url("./../../assets/img/shadow.svg") top right;
+  }
+}

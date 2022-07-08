@@ -1,0 +1,41 @@
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+  padding: 0px 40px;
+  border-bottom: 1px solid #E5E5E5;
+  //.top__back
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    line-height: calc(20 / 16);
+    color: #82B284;
+    cursor: pointer;
+
+    img {
+      display: inline-block;
+      margin-right: 16px;
+    }
+  }
+
+  //.top__control
+  &__control {
+    display: flex;
+    max-width: 100%;
+
+    button {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+
+  }
+}

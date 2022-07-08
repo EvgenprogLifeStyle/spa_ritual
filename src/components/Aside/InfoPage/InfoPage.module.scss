@@ -1,0 +1,55 @@
+.info {
+  flex: 1 1 auto;
+  background: #F7F7F7;
+  position: fixed;
+  left: 48px;
+  top: 0;
+  min-height: 100vh;
+  height: 100%;
+  width: 232px;
+
+  //.info__top
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    line-height: 160%;
+  }
+
+  //.info__title
+  &__title {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  //.info__desc
+  &__desc {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  //.info__list
+  &__list {
+
+  }
+
+  //.info__item
+  &__item {
+    background: #EEEEEE;
+    min-height: 48px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: calc(20 / 14);
+
+    color: #82B284;
+    svg {
+      display: inline-block;
+      margin-right: 12px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+$mainColor: #3B3B3B;
+$fontFamily: 'Noto Sans';
+$fontSize: 16px;
+
+@import "./base";
+
+
+body {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  line-height: 1;
+  color: $mainColor;
+}
+
+
+#root {
+  min-height: 100vh;
+  width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  overflow-x: hidden;
+}
