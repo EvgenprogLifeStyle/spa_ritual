@@ -24,3 +24,33 @@ main {
   display: flex;
   overflow-x: hidden;
 }
+
+
+.input {
+  position: relative;
+
+  input {
+    border: 1px solid #CDCDCD;
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-size: 14px;
+    line-height: calc(20 / 14);
+    //&:focus+ span{
+    //  font-size: 10px;
+    //  top: -10px;
+    //}
+  }
+
+  span {
+    display: none;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+transition: 0.3s;
+    line-height: 1.2;
+    color: #808080;
+    font-size: 14px;
+    pointer-events: none;
+  }
+}

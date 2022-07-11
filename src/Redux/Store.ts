@@ -11,7 +11,7 @@ let reducers = combineReducers({
 })
 
 const store = createStore(reducers,
-        applyMiddleware(thunk))
+    applyMiddleware(thunk))
 
 
 

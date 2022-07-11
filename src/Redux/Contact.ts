@@ -3,6 +3,7 @@ import {setCompanies} from "./Market";
 
 enum ActionContact {
     GET_CONTACT = "GET_CONTACT",
+    SET_ERROR = "SET_ERROR"
 
 }
 
@@ -17,14 +18,13 @@ const defaultState = {
         email: null,
 
     },
+    error: '222'
 
 };
 const Contact = (state = defaultState, action: any) => {
     switch (action.type) {
         case ActionContact.GET_CONTACT: {
-
             return {
-                ...state,
                 contact: {
                     id: action.data.id,
                     lastname: action.data.lastname,
@@ -37,18 +37,39 @@ const Contact = (state = defaultState, action: any) => {
             };
 
         }
+        case ActionContact.SET_ERROR: {
 
+            console.log(action)
+            return {
+                ...state,
+                error: action.error
+            }
+        }
 
         default:
             return state;
     }
 };
 
-export const setContact = (data: number) => ({type: ActionContact.GET_CONTACT, data})
+export const setContact = (data: any) => ({type: ActionContact.GET_CONTACT, data})
+export const setError = (error: any) => ({type: ActionContact.SET_ERROR, error})
+
 
 export const getContact = (idContact: number) => async (dispatch: any) => {
     let data = await contactApi.getContact(idContact);
     dispatch(setContact(data));
 }
+
+export const updateContact = (id: number, data: any) => async (dispatch: any) => {
+    try {
+        let response = await contactApi.putContact(id, data);
+        dispatch(setContact(response));
+    } catch (e: any) {
+        // console.log(123)
+        // console.log(e.response.data.error)
+        dispatch(setError(e.response.data.error))
+    }
+};
+
 
 export default Contact;

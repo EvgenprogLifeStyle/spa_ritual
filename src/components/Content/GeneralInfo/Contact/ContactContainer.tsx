@@ -1,38 +1,31 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from "react";
 import Contact from "./Contact";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getContact} from "../../../../Redux/Contact";
+import {getContact, updateContact} from "../../../../Redux/Contact";
 import Loader from "../../../Ui/Loader/Loader";
 
 interface PropsContact {
-    idContact: number,
-    getContact: (id: number) => void,
-    state: any
+    idContact: number;
+    getContact: (id: number) => void;
+    contact: any;
+    sale: any;
+    updateContact: (id: number, data:any) => void;
+    error:string
 }
 
-const ContactContainer: FC<PropsContact> = ({idContact, getContact, state}) => {
-    console.log(idContact)
-    const [id, setId] = useState(0)
+const ContactContainer: FC<PropsContact> = ({idContact, getContact, contact, sale, error, updateContact}) => {
+
     useEffect(() => {
-
-        getContact(idContact)
-        setId(idContact)
-
-    }, [])
-    return <>
-        {state.lastname !== null
-            ?
-            <Contact state={state}/>
-            : <Loader/>}
-    </>
+        getContact(idContact);
+    }, [sale]);
+    return <>{contact.id !== null ? <Contact state={contact} updateContact={updateContact} error={error}/> : <Loader/>}</>;
 };
 
 let mapStateToProps = (state: any) => ({
-    state: state.contact.contact,
-})
+    contact: state.contact.contact,
+    error: state.contact.error,
+    sale: state.data.companies.id,
+});
 
-export default compose(
-    connect(mapStateToProps, {getContact}),
-)(React.memo(ContactContainer))
-
+export default compose(connect(mapStateToProps, {getContact, updateContact}))(ContactContainer);
