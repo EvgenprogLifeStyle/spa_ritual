@@ -4,6 +4,7 @@ import EditButton from "../../../Ui/Button/EditButton/EditButton";
 import InputText from "../../../Ui/Input/InputText/InputText";
 import editIcon from "../../../../assets/img/Edit.svg";
 import saveImg from "../../../../assets/img/save.svg";
+import SaveBtn from "../../../Ui/Button/SaveBtn/SaveBtn";
 
 interface PropsContact {
     state: any,
@@ -11,10 +12,8 @@ interface PropsContact {
     updateContact: (id: number, value: any) => void
 }
 
-const Contact: FC<PropsContact> = ({state, updateContact,error}) => {
+const Contact: FC<PropsContact> = ({state, updateContact, error}) => {
 
-    // console.log(error)
-    // console.log(state)
     const [stateContact, setStateContact] = useState(false)
 
 
@@ -35,7 +34,7 @@ const Contact: FC<PropsContact> = ({state, updateContact,error}) => {
     const [statePhoneValue, setStatePhoneValue] = useState<string>(state.phone);
     const editPhone = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if(error) return  setStatePhoneValue(state.phone)
+        if (error) return setStatePhoneValue(state.phone)
         setStatePhoneValue(e.target.value)
 
 
@@ -48,7 +47,6 @@ const Contact: FC<PropsContact> = ({state, updateContact,error}) => {
 
     const saveContact = () => {
 
-        // console.log(statePhoneValue)
         if (updateContact) {
             updateContact(state.id, {
                 lastname: stateLastnameValue,
@@ -61,83 +59,54 @@ const Contact: FC<PropsContact> = ({state, updateContact,error}) => {
         setStateContact(false)
     }
 
-
-    // console.log(state)
     return (
         <div className={s.general__wrap}>
 
 
             <div className={s.general__subtitle}>
                 <div>КОНТАКТНЫЕ ДАННЫЕ</div>
-
-                {!stateContact ?
-                    <button style={{width: 20, height: 20, background: `url(${editIcon}) center no-repeat`}}
-                            onClick={() => {
-                                setStateContact(true);
-                            }}/>
-                    : <button onClick={saveContact}><img src={saveImg} alt=""/></button>
+                {!stateContact
+                    ? <EditButton onClick={() => setStateContact(true)}/>
+                    : <SaveBtn onClick={saveContact}/>
                 }
-
-
             </div>
             {!stateContact ?
                 <>
                     <div className={s.general__row}>
                         <div className={s.general__name}>ФИО:</div>
                         <div className={s.general__data}>
-
                             {state.lastname} {state.firstname} {state.patronymic}</div>
-
-
                     </div>
                     <div className={s.general__row}>
                         <div className={s.general__name}>Телефон:</div>
                         <div className={s.general__data}>{state.phone} </div>
-
                     </div>
                     <div className={s.general__row}>
                         <div className={s.general__name}>Эл. почта:</div>
-                        <div className={s.general__data}><a href="mailto:grigoriev@funeral.com">{state.email} </a>
+                        <div className={s.general__data}><a href={`mailto:${state.email}`}>{state.email} </a>
                         </div>
-
                     </div>
                 </>
                 : <>
                     <div className={s.general__row}>
                         <div className={s.general__name}>ФИО:</div>
-                        <div style={{gap:10, display: 'flex'}}>
-                        <div className="input">
-                            <input type="text" onChange={editLastname} value={stateLastnameValue}/>
-                            <span>Name</span>
-                        </div>
-                        <div className="input">
-                            <input type="text" onChange={editFirstname} value={stateFirstnameValue}/>
-                            <span>Name</span>
-                        </div>
-                        <div className="input">
-                            <input type="text" onChange={editPatronymic} value={statePatronymicValue}/>
-                            <span>Name</span>
-                        </div>
+                        <div style={{gap: 10, display: 'flex'}}>
+                            <InputText onChange={editLastname} value={stateLastnameValue}/>
+                            <InputText onChange={editFirstname} value={stateFirstnameValue}/>
+                            <InputText onChange={editPatronymic} value={statePatronymicValue}/>
                         </div>
                     </div>
                     <div className={s.general__row}>
                         <div className={s.general__name}>Телефон:</div>
-                        <div className="input">
-                            <input type="text" maxLength={11} onChange={editPhone} value={statePhoneValue}/>
-                            <span>Name</span>
-                        </div>
+                        <InputText maxLength={11} onChange={editPhone} value={statePhoneValue}/>
                     </div>
                     <div className={s.general__row}>
                         <div className={s.general__name}>Эл. почта:</div>
-                        <div className="input">
-                            <input type="text" onChange={editEmail} value={stateEmailValue}/>
-                            <span>Name</span>
-                        </div>
+                        <InputText onChange={editEmail} value={stateEmailValue}/>
                     </div>
                 </>
-
             }
-            {error && <div>{error}</div>}
+            {error && <div className="_error">{error}</div>}
         </div>
     );
 };

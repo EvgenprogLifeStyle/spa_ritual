@@ -8,8 +8,6 @@ const InfoPage = () => {
 
     const state = useSelector(state => state)
 
-
-    // console.log(state)
     return (
         <div className={s.info}>
             <div className={s.info__top}>

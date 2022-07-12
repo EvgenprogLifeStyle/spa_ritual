@@ -1,37 +1,20 @@
 import React, {FC, useState} from "react";
 import s from "./GeneralInfo.module.scss";
-import AddIcon from "./../../../assets/img/Add.svg";
-import {getDate} from "./GeneralInfoContainer";
 import ContactContainer from "./Contact/ContactContainer";
-import editIcon from "../../../assets/img/Edit.svg";
-import DeleteIcon from "./../../../assets/img/delete_app.svg";
-import DefaultImg from "./../../../assets/img/img_default.jpg";
-import saveImg from "./../../../assets/img/save.svg";
+import EditButton from "../../Ui/Button/EditButton/EditButton";
+import SaveBtn from "../../Ui/Button/SaveBtn/SaveBtn";
+import InputText from "../../Ui/Input/InputText/InputText";
+import InputFile from "../../Ui/Input/InputFile/InputFile";
+import PhotosItem from "./PhotosItem/PhotosItem";
+import {PropsGeneralInfo} from "../../../Type/Type";
+import Company from "./Company/Company";
 
-interface PropsGeneralInfo {
-    companies: {
-        id: number;
-        name: string;
-        shortName: string;
-        photos: any[];
-        type: any[];
-        businessEntity: string;
-        contactId: number;
-        contract: {
-            no: string,
-            issue_date: string
-        }
 
-    }
-    updateShort?: (id: number, value: any) => void
-}
-
-const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort}) => {
+const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort, savePhoto, deleteImage}) => {
     const [stateShort, setStateShort] = useState<boolean>(false);
     const [stateShortValue, setStateShortValue] = useState<string>(companies.shortName);
 
     const [stateCompany, setStateCompany] = useState<boolean>(false);
-    // const [stateShortValue, setStateShortValue] = useState<string>(companies.shortName);
 
 
     const editShort = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +48,7 @@ const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort}) => {
 
     const saveShort = () => {
         if (updateShort) {
-            updateShort(12, {
+            updateShort(companies.id, {
                 shortName: stateShortValue
             })
         }
@@ -73,7 +56,6 @@ const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort}) => {
     }
 
     const saveCompany = () => {
-        // console.log(stateTypeValue.join(',').trim().split(','))
         const typeCustom = stateTypeValue.join(',').trim().split(',')
         if (typeCustom[0] === "Агент") typeCustom[0] = "agent"
         if (typeCustom[1] === "Подрядчик") typeCustom[1] = "contractor"
@@ -92,112 +74,28 @@ const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort}) => {
         setStateCompany(false)
     }
 
-    // const addImage = (e) => {
-    //     if (e.target.files.length > 0) {
-    //         setLoadingImg(true)
-    //         savePhoto(e.target.files[0])
-    //     }
-    // }
-
+    const addImage = (e: any) => {
+        if (e.target.files.length > 0)
+            if (savePhoto)
+                savePhoto(companies.id, e.target.files[0])
+    }
 
     return (
         <div className={s.general}>
             <div className={s.general__title}>
-                {!stateShort ?
-                    <>
+                {!stateShort
+                    ? <>
                         <h2>{companies.shortName} </h2>
-                        <button
-                            style={{width: 20, height: 20, background: `url(${editIcon}) center no-repeat`}}
-                            onClick={() => {
-                                setStateShort(true);
-                            }}
-                        />
-                    </>
-                    :
-                    <>
-                        <div className="input">
-                            <input type="text" onChange={editShort} value={stateShortValue}/>
-                            <span>Name</span>
-                        </div>
-                        <button onClick={() => saveShort()}><img src={saveImg} alt=""/></button>
-                    </>
-                }
-            </div>
-            <div className={s.general__wrap}>
-                <div className={s.general__subtitle}>
-                    <div>ОБЩАЯ ИНФОРМАЦИЯ</div>
-                    {!stateCompany ?
-                        <button style={{width: 20, height: 20, background: `url(${editIcon}) center no-repeat`}}
-                                onClick={() => {
-                                    setStateCompany(true);
-                                }}/>
-                        : <button onClick={saveCompany}><img src={saveImg} alt=""/></button>
-                    }
-                </div>
-                {!stateCompany ?
-                    <>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Полное название:</div>
-                            <div className={s.general__data}>{companies.name} </div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Договор:</div>
-                            <div
-                                className={s.general__data}> {companies.contract.no} от {getDate(companies.contract.issue_date)}{" "}
-                            </div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Форма:</div>
-                            <div className={s.general__data}>{companies.businessEntity}</div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Тип:</div>
-                            <div className={s.general__data}>
-                                {companies.type.join(', ')}
-                            </div>
-
-                        </div>
+                        <EditButton onClick={() => setStateShort(true)}/>
                     </>
                     : <>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Полное название:</div>
-                            <div className="input">
-                                <input type="text" onChange={editName} value={stateNameValue}/>
-                                <span>Name</span>
-                            </div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Договор:</div>
-                            <div style={{display: "flex", gap: 10}}>
-                                <div className="input">
-                                    <input type="text" onChange={editContractNo} value={stateContractNoValue}/>
-                                    <span>Name</span>
-                                </div>
-                                <div className="input">
-                                    <input type="text" onChange={editContractIssue}
-                                           value={getDate(stateContractIssueValue)}/>
-                                    <span>Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Форма:</div>
-                            <div className="input">
-                                <input type="text" onChange={editBusinessEntity} value={stateBusinessEntityValue}/>
-                                <span>Name</span>
-                            </div>
-                        </div>
-                        <div className={s.general__row}>
-                            <div className={s.general__name}>Тип:</div>
-                            <div className="input">
-                                <input type="text" onChange={editType} value={stateTypeValue}/>
-                                <span>Name</span>
-                            </div>
-                        </div>
+                        <InputText onChange={editShort} value={stateShortValue}/>
+                        <SaveBtn onClick={saveShort}/>
                     </>
                 }
             </div>
 
+            <Company/>
             <ContactContainer idContact={+companies.contactId}/>
 
             <div className={`${s.general__wrap} ${s.app}`}>
@@ -205,22 +103,11 @@ const GeneralInfo: FC<PropsGeneralInfo> = ({companies, updateShort}) => {
                     <div>ПРИЛОЖЕННЫЕ ФОТО</div>
                 </div>
                 <div className={s.app__list}>
-                    {companies.photos.map((item) => (
-                        <div className={s.app__item}>
-                            <button className={s.app__del}>
-                                <img src={DeleteIcon} alt="Иконка удалить"/>
-                            </button>
-                            <div className={s.app__img}>
-                                <img src={item.filepath ? item.filepath : DefaultImg} alt=""/>
-                            </div>
-                            <div className={s.app__name}>{item.name}</div>
-                            <div className={s.app__date}>11 июня 2018</div>
-                        </div>
+                    {companies.photos.map((item, idx) => (
+                        <PhotosItem key={idx} deleteImage={deleteImage} imgState={item}/>
                     ))}
                 </div>
-                <button className={s.app__add}>
-                    <img src={AddIcon} alt="Иконка добавить"/> ДОБАВИТЬ ИЗОБРАЖЕНИЕ
-                </button>
+                <InputFile onChange={addImage}/>
             </div>
         </div>
     );

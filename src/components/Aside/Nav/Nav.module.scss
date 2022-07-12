@@ -19,7 +19,7 @@
       justify-content: center;
       transition: 0.3s;
 
-      &.active,
+
       &:hover {
         background: #A4C7A5;
       }
@@ -33,3 +33,6 @@
   flex-direction: column;
   justify-content: flex-end;
 }
+.active {
+    background: #A4C7A5;
+  }

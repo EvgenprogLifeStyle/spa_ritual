@@ -39,7 +39,6 @@ const Contact = (state = defaultState, action: any) => {
         }
         case ActionContact.SET_ERROR: {
 
-            console.log(action)
             return {
                 ...state,
                 error: action.error
@@ -65,8 +64,6 @@ export const updateContact = (id: number, data: any) => async (dispatch: any) =>
         let response = await contactApi.putContact(id, data);
         dispatch(setContact(response));
     } catch (e: any) {
-        // console.log(123)
-        // console.log(e.response.data.error)
         dispatch(setError(e.response.data.error))
     }
 };
