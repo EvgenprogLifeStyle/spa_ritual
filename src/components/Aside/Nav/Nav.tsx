@@ -8,9 +8,6 @@ import settingsIcon from './../../../assets/img/settings_nav.svg'
 import chatIcon from './../../../assets/img/chat_nav.svg'
 import exitIcon from './../../../assets/img/exit_nav.svg'
 
-
-
-
 const Nav = () => {
     return (
         <nav className={s.nav}>

@@ -31,10 +31,7 @@ const defaultState = {
 const Market = (state = defaultState, action: any) => {
     switch (action.type) {
         case ActionConst.GET_LOGIN: {
-            return {
-                ...state,
-                isAuth: action.isAuth,
-            };
+            return { ...state, isAuth: action.isAuth};
         }
         case ActionConst.GET_COMPANIES: {
             return {
@@ -77,22 +74,13 @@ const Market = (state = defaultState, action: any) => {
         case ActionConst.ADD_PHOTO: {
             return {
                 ...state,
-                companies:
-                    {
-                        ...state.companies,
-                        photos: [...state.companies.photos,
-                            action.photos]
-                    },
+                companies: {...state.companies, photos: [...state.companies.photos, action.photos]},
             };
         }
         case ActionConst.DELETE_PHOTO: {
             return {
                 ...state,
-                companies:
-                    {
-                        ...state.companies,
-                        photos: updateStatePhotos(state.companies.photos, action.photos)
-                    },
+                companies: { ...state.companies, photos: updateStatePhotos(state.companies.photos, action.photos) },
             }
         }
 
@@ -117,11 +105,10 @@ export const deleteCompanySuccess = () => ({type: ActionConst.DELETE_COMPANY});
 
 export const setUser = (login: string) => async (dispatch: any) => {
     let response = await userApi.getUser(login);
-    if (response.status === 200) setUserSuccess(true)
-
+    if (response.status === 200) dispatch(setUserSuccess(true))
 }
-const updateStatePhotos = (state: any, nameImg: string) => state.filter((el: any) => el.name !== nameImg)
 
+const updateStatePhotos = (state: any, nameImg: string) => state.filter((el: any) => el.name !== nameImg)
 
 export const getCompanies = (id: number) => async (dispatch: any) => {
     let data = await companiesApi.getCompanies(id);
@@ -132,7 +119,7 @@ export const getCompanies = (id: number) => async (dispatch: any) => {
 
 export const updateCompaniesShort = (id: number, data: any) => async (dispatch: any) => {
     let response = await companiesApi.putCompanies(id, data);
-     dispatch(updateShort(response));
+    dispatch(updateShort(response));
 };
 
 export const updateCompaniesGeneral = (id: number, data: any) => async (dispatch: any) => {

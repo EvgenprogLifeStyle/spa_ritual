@@ -1,5 +1,3 @@
-
-
 export interface PropsGeneralInfo {
     companies: {
         id: number;

@@ -25,7 +25,6 @@
     display: inline-flex;
     align-items: center;
     margin-bottom: 20px;
-
   }
 
   //.general__row
@@ -35,19 +34,15 @@
     line-height: 160%;
     letter-spacing: 0.25px;
 
-
     &:not(:last-child) {
       margin-bottom: 12px;
     }
-
-
   }
 
   //.general__name
   &__name {
     flex: 0 0 150px;
     font-weight: 300;
-
   }
 
   .general__name__row {

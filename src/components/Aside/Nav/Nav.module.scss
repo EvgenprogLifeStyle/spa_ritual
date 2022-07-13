@@ -10,7 +10,6 @@
   height: 100vh;
 
   li {
-
     a {
       display: inline-flex;
       width: 48px;
@@ -18,7 +17,6 @@
       align-items: center;
       justify-content: center;
       transition: 0.3s;
-
 
       &:hover {
         background: #A4C7A5;
@@ -33,6 +31,7 @@
   flex-direction: column;
   justify-content: flex-end;
 }
+
 .active {
-    background: #A4C7A5;
-  }
+  background: #A4C7A5;
+}

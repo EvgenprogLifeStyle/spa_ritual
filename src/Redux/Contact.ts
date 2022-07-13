@@ -1,12 +1,9 @@
-import {companiesApi, contactApi} from "../Api/Api";
-import {setCompanies} from "./Market";
+import {contactApi} from "../Api/Api";
 
 enum ActionContact {
     GET_CONTACT = "GET_CONTACT",
     SET_ERROR = "SET_ERROR"
-
 }
-
 
 const defaultState = {
     contact: {
@@ -16,10 +13,8 @@ const defaultState = {
         patronymic: null,
         phone: null,
         email: null,
-
     },
-    error: '222'
-
+    error: ''
 };
 const Contact = (state = defaultState, action: any) => {
     switch (action.type) {
@@ -32,19 +27,13 @@ const Contact = (state = defaultState, action: any) => {
                     patronymic: action.data.patronymic,
                     phone: action.data.phone,
                     email: action.data.email,
-
                 }
             };
 
         }
         case ActionContact.SET_ERROR: {
-
-            return {
-                ...state,
-                error: action.error
-            }
+            return {...state, error: action.error}
         }
-
         default:
             return state;
     }
@@ -52,7 +41,6 @@ const Contact = (state = defaultState, action: any) => {
 
 export const setContact = (data: any) => ({type: ActionContact.GET_CONTACT, data})
 export const setError = (error: any) => ({type: ActionContact.SET_ERROR, error})
-
 
 export const getContact = (idContact: number) => async (dispatch: any) => {
     let data = await contactApi.getContact(idContact);

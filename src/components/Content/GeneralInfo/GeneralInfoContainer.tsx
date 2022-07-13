@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import React, {FC, useEffect} from "react";
+import {compose} from "redux";
+import {connect} from "react-redux";
 import {deletePhoto, getCompanies, savePhoto, updateCompaniesShort} from "../../../Redux/Market";
 import GeneralInfo from "./GeneralInfo";
 import Loader from "../../Ui/Loader/Loader";
@@ -10,8 +10,10 @@ const GeneralInfoContainer: FC = (props: any) => {
     useEffect(() => {
         props.getCompanies(12);
     }, []);
-    if(!props.state) return <NoData/>
-    return <>{props.state.id !== null ? <GeneralInfo companies={props.state} updateShort={props.updateCompaniesShort} savePhoto={props.savePhoto} deleteImage={props.deletePhoto} /> : <Loader />}</>;
+    if (!props.state) return <NoData/>
+    return <>{props.state.id !== null ?
+        <GeneralInfo companies={props.state} updateShort={props.updateCompaniesShort} savePhoto={props.savePhoto}
+                     deleteImage={props.deletePhoto}/> : <Loader/>}</>;
 };
 
 let mapStateToProps = (state: any) => ({
@@ -29,4 +31,9 @@ export const getDate = (str: any) => {
     return date.toLocaleString("ru", options);
 };
 
-export default compose(connect(mapStateToProps, { getCompanies, updateCompaniesShort, savePhoto,deletePhoto  }))(React.memo(GeneralInfoContainer));
+export default compose(connect(mapStateToProps, {
+    getCompanies,
+    updateCompaniesShort,
+    savePhoto,
+    deletePhoto
+}))(React.memo(GeneralInfoContainer));

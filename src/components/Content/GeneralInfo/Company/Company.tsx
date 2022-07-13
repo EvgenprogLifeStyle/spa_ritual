@@ -5,21 +5,13 @@ import SaveBtn from "../../../Ui/Button/SaveBtn/SaveBtn";
 import {getDate} from "../GeneralInfoContainer";
 import InputText from "../../../Ui/Input/InputText/InputText";
 import {useDispatch, useSelector} from "react-redux";
-import {getCompanies, updateCompaniesGeneral, updateCompaniesShort} from "../../../../Redux/Market";
+import {updateCompaniesGeneral} from "../../../../Redux/Market";
 
-const Company:FC = () => {
-const companies = useSelector((state:any)=>state.data.companies)
-const dispatch = useDispatch()
-
-    const [stateShort, setStateShort] = useState<boolean>(false);
-    const [stateShortValue, setStateShortValue] = useState<string>(companies.shortName);
+const Company: FC = () => {
+    const companies = useSelector((state: any) => state.data.companies)
+    const dispatch = useDispatch()
 
     const [stateCompany, setStateCompany] = useState<boolean>(false);
-
-
-    const editShort = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStateShortValue(e.target.value)
-    }
 
     const [stateNameValue, setStateNameValue] = useState<string>(companies.name);
     const editName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,26 +38,22 @@ const dispatch = useDispatch()
         setStateTypeValue(e.target.value.split(','))
     }
 
-
-    //
     const saveCompany = () => {
         const typeCustom = stateTypeValue.join(',').trim().split(',')
         if (typeCustom[0] === "Агент") typeCustom[0] = "agent"
         if (typeCustom[1] === "Подрядчик") typeCustom[1] = "contractor"
         dispatch<any>(updateCompaniesGeneral(12, {
-                name: stateNameValue,
-                businessEntity: stateBusinessEntityValue,
-                type: typeCustom,
-                contract: {
-                    no: stateContractNoValue,
-                    // issue_date: stateContractIssueValue,
-                },
-            }))
+            name: stateNameValue,
+            businessEntity: stateBusinessEntityValue,
+            type: typeCustom,
+            contract: {
+                no: stateContractNoValue,
+                // issue_date: stateContractIssueValue,
+            },
+        }))
 
         setStateCompany(false)
     }
-
-
 
     return (
         <div className={s.general__wrap}>
